@@ -23,6 +23,6 @@ while True:
         humidity = int(sensor.data.humidity * 100)
         foo = "{0:04x}{1:04x}".format(temp,humidity)
         lora.send(bytes.fromhex(foo))
-        time.sleep(20)
+        time.sleep(120)
  
 lora.close()

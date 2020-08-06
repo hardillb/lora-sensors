@@ -6,12 +6,13 @@
 // products from Adafruit!
 //
 // Copyright 2015, 2016 Ideetron B.V.
-//
+//#include <RH_RF95.h>
 // Modified by Brent Rubell for Adafruit Industries, 2018
 // Modified by Ben Hardill to add battery levels
 /************************** Configuration ***********************************/
 #define EU863
 
+#include <RH_RF95.h>
 #include <TinyLoRa.h>
 #include <SPI.h>
 #include "DHT.h"
@@ -34,7 +35,7 @@ uint8_t DevAddr[4] = { };
 unsigned char loraData[6];
 
 // How many times data transfer should occur, in seconds
-const unsigned int sendInterval = 30;
+const unsigned int sendInterval = 120;
 
 // Pinout for Adafruit Feather 32u4 LoRa
 TinyLoRa lora = TinyLoRa(7, 8, 4);
@@ -47,6 +48,8 @@ TinyLoRa lora = TinyLoRa(7, 8, 4);
 DHT dht(DHTPIN, DHT22);
 
 #define VBATPIN A9
+
+RH_RF95 radio;
 
 void setup()
 {
@@ -130,5 +133,6 @@ void loop()
   digitalWrite(LED_BUILTIN, LOW);
   
   Serial.println("delaying...");
+  radio.sleep();
   delay(sendInterval * 1000);
 }
